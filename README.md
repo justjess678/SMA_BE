@@ -23,8 +23,9 @@ Volets
 Capteurs de luminosité
 Dispositif qui mesure l’énergie consommée
 Les personnes dans la salle
+
 Les lumières doivent compléter la lumière déjà présente pour allumer correctement la pièce (eg: si le soleil fournit 80% de luminosité “confortable”, les lumières fourniront le 20% restant)
--
+
 Le système est accessible car la valeur de la luminosité de la pièce et la valeur de la quantité d’électricité sont partagées avec les autres agents dès qu’ils sont captés.
 Le système est déterministe: si la luminosité baisse, les lumières augmentent leur luminosité, et inversement.
 Le système est dynamique car l’environnement peut changer pendant que les lumières calculent leur luminosité (les cours pourraient finir, le soleil se lèvera, etc…)
