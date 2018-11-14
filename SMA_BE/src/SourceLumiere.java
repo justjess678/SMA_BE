@@ -1,20 +1,41 @@
-public abstract class SourceLumiere {
-	protected float luminosite;
-	protected float nrj;
+import fr.irit.smac.amak.Agent;
 
-	public float getLuminosite() {
+public abstract class SourceLumiere extends Agent<Salle, MyEnvironment> {
+
+	public SourceLumiere(Salle amas) {
+		super(amas);
+
+	}
+
+	@Override
+	protected abstract void onInitialization();
+
+	@Override
+	protected abstract void onReady();
+
+	@Override
+	protected abstract double computeCriticality();
+
+	protected abstract void onPerceive();
+
+	protected abstract void onDecideAndAct();
+
+	protected double luminosite;
+	protected double nrj;
+
+	public double getLuminosite() {
 		return luminosite;
 	}
 
-	public void setLuminosite(float luminosite) {
+	public void setLuminosite(double luminosite) {
 		this.luminosite = luminosite;
 	}
 
-	public float getNrj() {
+	public double getNrj() {
 		return nrj;
 	}
 
-	public void setNrj(float nrj) {
+	public void setNrj(double nrj) {
 		this.nrj = nrj;
 	}
 
