@@ -1,20 +1,20 @@
 public class Personne {
-	private float satisfaction;
+	private double satisfaction;
 
 	public Personne() {
-		this.satisfaction = 50.0f;
+		this.satisfaction = 50.0;
 	}
 
-	public float getSatisfaction() {
+	public double getSatisfaction() {
 		return satisfaction;
 	}
 
-	public void setSatisfaction(float luminosite) {
-		if (luminosite < 75.0f) {// too dark
+	public void setSatisfaction(double luminosite) {
+		if (luminosite < 75.0) {// too dark
 			this.satisfaction--;
-		} else if (luminosite > 75.0f && luminosite < 150.0f) {// nice light
+		} else if (luminosite > 75.0 && luminosite < 150.0) {// nice light
 			this.satisfaction++;
-		} else if (luminosite > 150.0f) { // too bright
+		} else if (luminosite > 150.0) { // too bright
 			this.satisfaction--;
 		}
 	}
