@@ -1,75 +1,63 @@
 import java.util.ArrayList;
 
-public class Salle {
+import fr.irit.smac.amak.*;
+import fr.irit.smac.amak.ui.MainWindow;
 
-	/**
-	 * @param args
-	 */
+public class Salle extends Amas<MyEnvironment> {
+
+	private static final int INITIAL_LIGHT_COUNT = 1;
+	private static final int INITIAL_SHUTTER_COUNT = 1;
+	private ArrayList<Lumiere> lumieres = new ArrayList<Lumiere>();
+	private ArrayList<Volet> volets = new ArrayList<Volet>();
+
+	public Salle(MyEnvironment env) {
+		// Set the environment and use default scheduling
+		super(env, Scheduling.DEFAULT);
+	}
+
+	@Override
+	protected void onInitialAgentsCreation() {
+		for (int i = 0; i < INITIAL_LIGHT_COUNT; i++)
+			this.lumieres.add(new Lumiere(this));
+		for (int i = 0; i < INITIAL_SHUTTER_COUNT; i++)
+			this.volets.add(new Volet(this));
+	}
+
+	protected void removeLight() {
+		this.lumieres.remove(this.lumieres.size());
+	}
+
+	protected void removeShutter() {
+		this.volets.remove(this.volets.size());
+	}
+
+	protected void addLight() {
+		this.lumieres.add(new Lumiere(this));
+	}
+
+	protected void addShutter() {
+		this.volets.add(new Volet(this));
+	}
+
 	public static void main(String[] args) {
-		int numOfLum = 1;
-		int numOfVol = 1;
-		int numOfPers = 1;
-		float THRESHOLD_LOW = 75;
 
-		Float soleil = 100.0f;
-		float lumTotal = 0.0f;
-		float nrjTotal = 0.0f;
-		Boolean stop = false;
-		int heure = 0;
-		int jour = 0; // lundi
+		Salle salle = new Salle(new MyEnvironment());
 
-		ArrayList<Lumiere> lumieres = new ArrayList<Lumiere>();
-		ArrayList<Volet> volets = new ArrayList<Volet>();
-		ArrayList<Personne> personnes = new ArrayList<Personne>();
-
-		for (int i = 0; i < numOfLum; i++) {
-			lumieres.add(new Lumiere());
-		}
-		for (int i = 0; i < numOfVol; i++) {
-			volets.add(new Volet());
-		}
-		for (int i = 0; i < numOfPers; i++) {
-			personnes.add(new Personne());
-		}
-
-		while (!stop) {
-			jour++;
-			jour = jour % 7;
-			heure++;
-			heure = heure % 24;
-			if (heure >= 8 && heure <= 21) {
-				// sun is active, peaks at 12
-				if (heure != 12) {
-					float tmp = Math.abs(12 - heure);
-					soleil = (1.0f / tmp) * 90.0f;
-				} else {
-					soleil = 100.0f;
-				}
-				// Simulation capteur luminosite
-				lumTotal = Math.round(lumieres.get(0).getLuminosite()
-						+ (volets.get(0).getLuminosite() * (soleil / 100)));
-				// Simulation capteur energie
-				nrjTotal = lumieres.get(0).getNrj() + volets.get(0).getNrj();
-
-				System.out.println("Luminosite: " + lumTotal
-						+ "\nEnergie consommee: " + nrjTotal);
-
-				for (int i = 0; i < numOfPers; i++) {
-					personnes.get(i).setSatisfaction(lumTotal);
-				}
-			} else {
-				// sun is inactive
-				soleil = 0.0f;
-				//turn off devices
-				for(int i=0;i<numOfLum;i++){
-					lumieres.get(i).setLuminosite(0.0f);
-				}
-				for(int i=0;i<numOfVol;i++){
-					lumieres.get(i).setLuminosite(0.0f);
-				}
-				System.out.println("NUIT");
-			}
-		}
+		new DrawableUI<Salle>(salle);
+		MainWindow.addMenuItem("Remove 1 light", l -> {l.removeLight()});
+		MainWindow.addMenuItem("Add 1 light", l -> {l.addLight()});
+		MainWindow.addMenuItem("Remove 1 shutter", l -> {salle.removeShutter()});
+		MainWindow.addMenuItem("Add 1 shutter", l -> {salle.addShutter()});
 
 	}
+
+	@Override
+	protected void onSystemCycleEnd() {
+		// code that must be executed at the end of each cycle
+		// For example, draw a point on a chart
+		// Update physical representation of light/shutter
+		// Update everything. Like, EVERYTHING
+
+	}
+
 }
