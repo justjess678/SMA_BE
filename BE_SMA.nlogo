@@ -1,18 +1,24 @@
 globals [ day? ]  ;
 
-turtles-own [
-  light
-  shutter
-]
+breed [lights light]
+breed [shutters shutter]
 
 to setup  ; by observer
   clear-all
+  create-lights NUM_LIGHTS [
+   set color white
+   set shape "circle"
+  ]
+  create-shutters NUM_SHUTTERS [
+   set color gray
+   set shape "rectangle"
+  ]
   set day? true  ; start off in daytime
   reset-ticks
 end
 
 to go
-  set day? (ticks mod 1800) < 900
+  set day? (ticks mod 720) < 900
   ask patches [ set pcolor ifelse-value day? [white][black] ]
   tick
 end
@@ -110,10 +116,10 @@ PENS
 "Brightness" 1.0 0 -4079321 true "" "plot count brightness"
 
 BUTTON
+117
 10
-6
-73
-39
+180
+43
 Go!
 go
 NIL
@@ -122,6 +128,23 @@ T
 OBSERVER
 NIL
 G
+NIL
+NIL
+1
+
+BUTTON
+8
+11
+72
+44
+Setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+S
 NIL
 NIL
 1
