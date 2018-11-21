@@ -172,7 +172,7 @@ public class Salle {
 		if (jourSemaine != Jours_semaine.SAMEDI
 				&& jourSemaine != Jours_semaine.DIMANCHE) {
 			luminosite = 0;
-			soleil.update(heure);
+			soleil.update(heure,tick);
 
 			luminosite = getLuminosite(lumieres, volets, soleil);
 			System.out.println("Current brightness:\t" + luminosite + "\n");
