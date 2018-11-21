@@ -1,0 +1,4 @@
+
+public enum Jours_semaine {
+	LUNDI, MARDI, MERCREDI, JEUDI, VENDREDI, SAMEDI, DIMANCHE
+}
