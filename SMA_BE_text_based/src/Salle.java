@@ -56,20 +56,6 @@ public class Salle {
 			lumieres.add(new Lumiere());
 		for (int i = 0; i < INITIAL_SHUTTER_COUNT; i++)
 			volets.add(new Volet());
-		try {
-			this.brightnessWriter = new BufferedWriter(new FileWriter(
-					"brightness.txt", false));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			this.energyWriter = new BufferedWriter(new FileWriter("energy.txt",
-					false));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		System.out.println("Setup Finished\n");
 	}
 
@@ -162,6 +148,14 @@ public class Salle {
 			s = "Time:\t" + this.heure + "h" + this.tick;
 		}
 		return s;
+	}
+
+	public void setSatisfaction(int satisfaction) {
+		this.satisfaction = satisfaction;
+	}
+	
+	public double getSun(){
+		return this.soleil.getLuminosite();
 	}
 
 	public void update() {
@@ -280,6 +274,20 @@ public class Salle {
 				+ nrj + " watts\nShutters are " + volets.get(0).getLuminosite()
 				* 100 + "% open\nLights are at "
 				+ lumieres.get(0).getLuminosite() + "% brightness\n");
+		try {
+			this.brightnessWriter = new BufferedWriter(new FileWriter(
+					"brightness.txt", false));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			this.energyWriter = new BufferedWriter(new FileWriter("energy.txt",
+					false));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// writing values to file to exploit later
 		try {
 			brightnessWriter.append(getTick() + "\t" + luminosite + "\n");
@@ -292,6 +300,18 @@ public class Salle {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+		try {
+			brightnessWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			energyWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		tick = (tick + 1) % 60;
 		try {
