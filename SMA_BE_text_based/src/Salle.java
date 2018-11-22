@@ -276,13 +276,13 @@ public class Salle {
 				+ lumieres.get(0).getLuminosite() + "% brightness\n");
 		try {
 			this.brightnessWriter = new BufferedWriter(new FileWriter(
-					"brightness.txt"));
+					"brightness.txt", true));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
-			this.energyWriter = new BufferedWriter(new FileWriter("energy.txt"));
+			this.energyWriter = new BufferedWriter(new FileWriter("energy.txt",true));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
